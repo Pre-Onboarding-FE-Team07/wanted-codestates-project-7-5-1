@@ -1,9 +1,8 @@
 import { useState, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SearchResultContext, RecomandListContext } from '../../App.jsx';
-import products from "../../datas/products.json";
-import regions from "../../datas/regions.json";
-
+import products from '../datas/products.json';
+import regions from '../datas/regions.json';
 
 const checkUrl = /^http[s]?\:\/\//i;
 const getWordType = (value) => {
@@ -28,8 +27,10 @@ const getRecommendList = (target) => {
 };
 
 const getRegionData = (target) => {
-    return target.length > 0 ? regions.filter((item) => item.product_code === target[0].product_code) : [];
-}
+  return target.length > 0
+    ? regions.filter((item) => item.product_code === target[0].product_code)
+    : [];
+};
 
 const SearchBar = () => {
   const [searchKeyword, setSearchKeyword] = useState();
@@ -52,28 +53,14 @@ const SearchBar = () => {
       const wordType = getWordType(word);
       const filteredProducts = getFilteredData(word, wordType);
 
-<<<<<<< HEAD
-      setSearchResult(filteredProducts);
       if (wordType === 'name') {
+        setSearchResult(filteredProducts);
         navigate('/keyword');
       } else {
+        setSearchResult(getRegionData(filteredProducts));
         updateRecommendList(filteredProducts);
         if (wordType === 'image_url') {
           word = encodeURIComponent(word);
-=======
-            if (wordType === 'name') {
-                setSearchResult(filteredProducts);
-                navigate('/keyword');
-            }
-            else {
-                setSearchResult(getRegionData(filteredProducts));
-                updateRecommendList(filteredProducts);
-                if (wordType === 'image_url') {
-                    word = encodeURIComponent(word);
-                }
-                navigate(`/product/${word}`);
-            }
->>>>>>> bd66a6e58a16a6d3e0af61dc8d8f47e0da42c028
         }
         navigate(`/product/${word}`);
       }

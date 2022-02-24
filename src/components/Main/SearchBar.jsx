@@ -5,7 +5,7 @@ import ErrorMessage from '../ErrorMessage';
 import products from "../../datas/products.json";
 
 const checkUrl = /^http[s]?\:\/\//i;
-function getWordType(value) {
+const getWordType = (value) => {
     if (isNaN(value)) {
         if (checkUrl.test(value))
             return 'image_url'
@@ -14,11 +14,11 @@ function getWordType(value) {
     return 'product_code';
 }
 
-function getFilteredData(word, wordType) {
+const getFilteredData = (word, wordType) => {
     return products.filter((product) => wordType === 'name' ? product.name.includes(word) : product[wordType] == word)
 }
 
-function getRecommendList(target) {
+const getRecommendList = (target) => {
     const category = target[0].name.split("_")[0];
     return products.filter((product) => product.name.includes(category));
 }

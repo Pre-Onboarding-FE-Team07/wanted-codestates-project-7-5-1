@@ -1,4 +1,4 @@
-import Aside from '../component/Product/Aside';
+import Aside from '../components/Product/Aside';
 
 const ProductPage = () => {
   return (

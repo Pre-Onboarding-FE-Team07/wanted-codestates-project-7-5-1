@@ -47,7 +47,6 @@ const SearchBar = () => {
         if (searchKeyword.replace(/\s/gi, "") !== "") {
             let word = searchKeyword.trim();
             const wordType = getWordType(word);
-            
             const filteredProducts = getFilteredData(word, wordType);
 
             if (wordType === 'name') {

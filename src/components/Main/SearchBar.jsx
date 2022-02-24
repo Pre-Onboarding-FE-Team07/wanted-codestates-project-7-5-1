@@ -2,7 +2,6 @@ import { useState, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SearchResultContext, RecomandListContext } from '../../App.jsx';
 import products from "../../datas/products.json";
-import products from "../../datas/products.json";
 import regions from "../../datas/regions.json";
 
 

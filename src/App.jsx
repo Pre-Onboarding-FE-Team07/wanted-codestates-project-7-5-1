@@ -2,7 +2,7 @@ import { useState, createContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import WithHeaderPage from './pages/WithHeaderPage';
-import MainPage from '.pages/MainPage';
+import MainPage from './pages/MainPage';
 import KeywordPage from './pages/KeywordPage';
 import ProductPage from './pages/ProductPage';
 

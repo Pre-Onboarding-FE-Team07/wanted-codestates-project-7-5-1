@@ -16,7 +16,7 @@ const Aside = ({ searchResult }) => {
   }, [category_names]);
 
   return (
-    <aside className="w-72 p-4">
+    <aside className="box-border w-[340px] p-4">
       <img src={image_url} alt="product" className="w-full" />
       <Section title="ITEMS">
         <span className="my-[9px] inline-block bg-purple-500 p-1 text-white">

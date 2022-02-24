@@ -57,6 +57,7 @@ const keywordData = (product, word) => {
 };
 
 const checkUrl = /^http[s]?\:\/\//i;
+
 const getType = (value) => {
   if (isNaN(value)) {
     if (checkUrl.test(value)) return 'image_url';

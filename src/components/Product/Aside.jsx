@@ -1,19 +1,38 @@
+import { useMemo, memo } from 'react';
+import PropTypes from 'prop-types';
 import AttributeList from './AttributeList';
 import Section from './Section';
 
-const Aside = () => {
+const Aside = ({ searchResult }) => {
+  const { image_url, attributes, category_names } = useMemo(
+    () => searchResult?.[0]?.region,
+    [searchResult]
+  );
+
+  const category = useMemo(() => {
+    const c1 = category_names[0].split('.')[1];
+    const category = c1.substr(0, c1.length - 1).toUpperCase();
+    return category;
+  }, [category_names]);
+
   return (
     <aside className="w-72 p-4">
-      <img src="" alt="product" className="w-full" />
+      <img src={image_url} alt="product" className="w-full" />
       <Section title="ITEMS">
-        <span className="bg-purple-600 text-white">ONE PIECE</span>
+        <span className="my-[9px] inline-block bg-purple-500 p-1 text-white">
+          {category}
+        </span>
       </Section>
       <hr />
       <Section title="ATTRIBUTES">
-        <AttributeList />
+        <AttributeList data={attributes} />
       </Section>
     </aside>
   );
 };
 
-export default Aside;
+Aside.propTypes = {
+  searchResult: PropTypes.array.isRequired,
+};
+
+export default memo(Aside);

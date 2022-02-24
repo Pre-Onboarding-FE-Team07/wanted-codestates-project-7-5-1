@@ -6,7 +6,6 @@ const SearchBar = () => {
   const { search } = useSearch();
 
   const handleSearchClick = async () => {
-    console.log(searchKeyword);
     if (searchKeyword.replace(/\s/gi, '') !== '') {
       search(searchKeyword);
     }

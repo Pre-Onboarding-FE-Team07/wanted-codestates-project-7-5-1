@@ -23,25 +23,20 @@ export default function KeywordPage() {
     );
   else
     return (
-      <div>
-        <div className="bg-white">
-          <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-              {searchResult.map((product) => (
-                <div key={product.product_code} className="group relative">
-                  <Card
-                    name={product.name}
-                    price={product.price}
-                    imageUrl={product.image_url}
-                    onClickEvent={() => {
-                      search(product.image_url);
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+      <section className="mx-auto box-border flex w-full p-10">
+        <div className="flex flex-wrap justify-center">
+          {searchResult.map((product) => (
+            <Card
+              key={product.product_code}
+              name={product.name}
+              price={product.price}
+              imageUrl={product.image_url}
+              onClickEvent={() => {
+                search(product.image_url);
+              }}
+            />
+          ))}
         </div>
-      </div>
+      </section>
     );
 }

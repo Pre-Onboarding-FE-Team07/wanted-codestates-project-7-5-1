@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,8 +10,6 @@ const Header = () => {
   }, [navigate]);
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div style={divStyle} onClick={onClick}>
       <img src={logo} alt="PXL Logo" />
     </div>

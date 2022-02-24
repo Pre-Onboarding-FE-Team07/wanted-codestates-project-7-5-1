@@ -1,7 +1,6 @@
 import { useState, useContext, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import { SearchResultContext, RecomandListContext } from '../../App.jsx';
-import ErrorMessage from '../ErrorMessage';
 import products from "../../datas/products.json";
 
 const checkUrl = /^http[s]?\:\/\//i;
@@ -25,32 +24,32 @@ const getRecommendList = (target) => {
 
 const SearchBar = () => {
     const [searchKeyword, setSearchKeyword] = useState();
-    const [isEmptyResult, setIsEmptyResult] = useState(false);
     const navigate = useNavigate();
-    const searchResultDispatch = useContext(SearchResultContext);
-    const recommendListDispatch = useContext(RecomandListContext);
+    const { setSearchResult} = useContext(SearchResultContext);
+    const { setRecommendList} = useContext(RecomandListContext);
 
-    const handleCloseModal = useCallback((e) => {
-        setIsEmptyResult(false);
-    }, []);
+    const updateRecommendList = (filteredProducts) => {
+        if (filteredProducts.length > 0) {
+            const recommendList = getRecommendList(filteredProducts);
+            setRecommendList(recommendList);
+        }
+        else {
+            setRecommendList([]);
+        }
+    }
 
     const handleSearchClick = (e) => {
         if (searchKeyword.replace(/\s/gi, "") !== "") {
             let word = searchKeyword.trim();
             const wordType = getWordType(word);
             const filteredProducts = getFilteredData(word, wordType);
-            if (filteredProducts.length === 0) {
-                setIsEmptyResult(true);
-                return;
-            }
 
-            searchResultDispatch.setSearchResult(filteredProducts);
+            setSearchResult(filteredProducts);
             if (wordType === 'name') {
                 navigate('/keyword');
             }
             else {
-                const recommendList = getRecommendList(filteredProducts);
-                recommendListDispatch.setRecommendList(recommendList);
+                updateRecommendList(filteredProducts);
                 if (wordType === 'image_url') {
                     word = encodeURIComponent(word);
                 }
@@ -72,7 +71,6 @@ const SearchBar = () => {
 
     return (
         <div className="flex flex-row justify-between">
-            { isEmptyResult && <ErrorMessage text="검색 결과가 없습니다." onClickEvent={handleCloseModal} />}
             <input type="text" placeholder="IMAGE URL or KEYWORD"
                 className="shadow-[0_4px_20px_-10px_rgba(0,0,0,0.3)] rounded-full px-8 py-4 text-left flex-1 focus:outline-0 focus:shadow-[0_4px_20px_-10px_rgba(0,0,0,0.5)]"
                 onChange={handleInputChange}

@@ -40,7 +40,10 @@
   },
   "dependencies": {
     "axios": "^0.26.0",
+<<<<<<< HEAD
+=======
     "dotenv": "^16.0.0",
+>>>>>>> 44fd255a6ec6287aab5af89087896c7b59024795
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

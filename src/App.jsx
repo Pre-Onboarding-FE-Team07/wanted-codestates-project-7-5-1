@@ -1,3 +1,4 @@
+import Home from "./pages/Home"
 export default function App() {
-  return <div className="bg-yellow-500 font-bold">Hello</div>;
+  return <div><Home></Home></div>;
 }

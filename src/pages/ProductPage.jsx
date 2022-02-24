@@ -22,7 +22,7 @@ const ProductPage = () => {
 
   return (
     <article className="flex flex-row">
-      <Aside />
+      <Aside searchResult={searchResult} />
       <Recommends />
     </article>
   );

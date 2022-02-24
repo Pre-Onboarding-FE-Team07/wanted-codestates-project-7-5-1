@@ -7,7 +7,7 @@ export default function Card({ name, price, imageUrl, onClickEvent }) {
   return (
     //  카드
     <div
-      className="overflow-hidden group-hover:opacity-75"
+      className="m-3 max-w-[15rem] shrink-0 grow basis-52 overflow-hidden group-hover:opacity-75"
       onClick={onClickEvent}
       aria-hidden="true"
     >

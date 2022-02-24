@@ -5,7 +5,7 @@ import Section from './Section';
 
 const Aside = ({ searchResult }) => {
   const { image_url, attributes, category_names } = useMemo(
-    () => searchResult?.[0]?.region,
+    () => searchResult?.[0],
     [searchResult]
   );
 

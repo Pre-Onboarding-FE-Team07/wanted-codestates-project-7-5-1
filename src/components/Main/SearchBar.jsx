@@ -1,10 +1,10 @@
 import { useState, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SearchResultContext, RecomandListContext } from '../../App.jsx';
-import products from '../datas/products.json';
-import regions from '../datas/regions.json';
+import { SearchResultContext, RecomandListContext } from '../../App';
+import products from '../../datas/products.json';
+import regions from '../../datas/regions.json';
 
-const checkUrl = /^http[s]?\:\/\//i;
+const checkUrl = /^http[s]?:\/\//i;
 const getWordType = (value) => {
   if (isNaN(value)) {
     if (checkUrl.test(value)) return 'image_url';

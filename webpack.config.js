@@ -1,7 +1,10 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-
+const webpack = require("webpack");
+const dotenv = require("dotenv");
+dotenv.config();
+ 
 module.exports = {
   mode: 'development',
   devtool: 'cheap-eval-source-map',
@@ -61,6 +64,9 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
+    }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env), 
     }),
   ],
 };

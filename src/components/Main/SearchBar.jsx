@@ -18,6 +18,11 @@ function getFilteredData(word, wordType) {
     return products.filter((product) => wordType === 'name' ? product.name.includes(word) : product[wordType] == word)
 }
 
+function getRecommendList(target) {
+    const category = target[0].name.split("_")[0];
+    return products.filter((product) => product.name.includes(category));
+}
+
 const SearchBar = () => {
     const [searchKeyword, setSearchKeyword] = useState();
     const [isEmptyResult, setIsEmptyResult] = useState(false);
@@ -31,7 +36,7 @@ const SearchBar = () => {
 
     const handleSearchClick = (e) => {
         if (searchKeyword.replace(/\s/gi, "") !== "") {
-            const word = searchKeyword.trim();
+            let word = searchKeyword.trim();
             const wordType = getWordType(word);
             const filteredProducts = getFilteredData(word, wordType);
             if (filteredProducts.length === 0) {
@@ -44,7 +49,11 @@ const SearchBar = () => {
                 navigate('/keyword');
             }
             else {
-                recommendListDispatch.setRecommendList(filteredProducts);
+                const recommendList = getRecommendList(filteredProducts);
+                recommendListDispatch.setRecommendList(recommendList);
+                if (wordType === 'image_url') {
+                    word = btoa(word);
+                }
                 navigate(`/product/${word}`);
             }
         }

@@ -12,7 +12,7 @@ const Recommends = () => {
   };
 
   return (
-    <section className="ml-8 flex w-full flex-wrap py-4">
+    <section className="ml-8 mr-6 flex w-full flex-wrap py-4">
       {recommendList.map((item) => (
         <Card
           key={item.product_code}

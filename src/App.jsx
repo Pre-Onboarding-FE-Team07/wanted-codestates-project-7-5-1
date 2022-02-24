@@ -1,7 +1,6 @@
 import { useState, createContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import Loading from './components/Loading';
 import WithHeaderPage from './pages/WithHeaderPage';
 import MainPage from './pages/MainPage';
 // import KeywordPage from './pages/KeywordPage';
@@ -18,7 +17,6 @@ export default function App() {
           <Route element={<WithHeaderPage />}>
             <Route path="/" element={<MainPage />} />
             {/* <Route path="/keyword" element={<KeywordPage />} /> */}
-            <Route path="/loading" element={<Loading />} />
             <Route path="/product">
               <Route path=":product_code" element={<ProductPage />} />
             </Route>

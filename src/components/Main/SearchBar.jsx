@@ -2,6 +2,7 @@ import { useState, useContext, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import { SearchResultContext, RecomandListContext } from '../../App.jsx';
 import products from "../../datas/products.json";
+import regions from "../../datas/regions.json";
 
 const checkUrl = /^http[s]?\:\/\//i;
 const getWordType = (value) => {
@@ -20,6 +21,10 @@ const getFilteredData = (word, wordType) => {
 const getRecommendList = (target) => {
     const category = target[0].name.split("_")[0];
     return products.filter((product) => product.name.includes(category));
+}
+
+const getRegionData = (target) => {
+    return target.length > 0 ? regions.filter((item) => item.product_code === target[0].product_code) : [];
 }
 
 const SearchBar = () => {
@@ -42,13 +47,15 @@ const SearchBar = () => {
         if (searchKeyword.replace(/\s/gi, "") !== "") {
             let word = searchKeyword.trim();
             const wordType = getWordType(word);
+            
             const filteredProducts = getFilteredData(word, wordType);
 
-            setSearchResult(filteredProducts);
             if (wordType === 'name') {
+                setSearchResult(filteredProducts);
                 navigate('/keyword');
             }
             else {
+                setSearchResult(getRegionData(filteredProducts));
                 updateRecommendList(filteredProducts);
                 if (wordType === 'image_url') {
                     word = encodeURIComponent(word);

@@ -1,16 +1,23 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
 import { useNavigate } from '../../node_modules/react-router/index';
 import { SearchResultContext } from '../App';
 import Card from '../components/Card';
 import ErrorMessage from '../components/ErrorMessage';
+import Loading from '../components/Loading';
 
 export default function KeywordPage() {
+  const [loading, setLoading] = useState(true);
   const { searchResult } = useContext(SearchResultContext);
   const navigate = useNavigate();
 
   const handleErrorConfirm = () => {
     navigate('/');
   };
+
+  useEffect(() => {
+    setLoading(false);
+  });
 
   if (!searchResult || !searchResult.length)
     return (
@@ -22,21 +29,25 @@ export default function KeywordPage() {
   else
     return (
       <div>
-        <div className="bg-white">
-          <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-              {searchResult.map((product) => (
-                <div key={product.product_code} className="group relative">
-                  <Card
-                    name={product.name}
-                    price={product.price}
-                    imageUrl={product.image_url}
-                  />
-                </div>
-              ))}
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className="bg-white">
+            <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+              <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                {searchResult.map((product) => (
+                  <div key={product.product_code} className="group relative">
+                    <Card
+                      name={product.name}
+                      price={product.price}
+                      imageUrl={product.image_url}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
 }

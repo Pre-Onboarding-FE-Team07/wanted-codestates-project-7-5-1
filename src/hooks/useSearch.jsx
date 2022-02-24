@@ -44,7 +44,8 @@ export default function useSearch() {
  async function search(searchKeyword) {
     let word = searchKeyword.trim();
     const type = getType(word);
-    const products = await fetchData(process.env.PRODUCT_URL);
+     const prductResult = await fetchData(process.env.PRODUCT_URL);
+     const products = prductResult.data;
     const filteredProducts = getFilteredData(products, word, type);
      
     if (type === 'name') {
@@ -52,7 +53,8 @@ export default function useSearch() {
       navigate('/keyword');
     }
     else {
-      const regions = await fetchData(process.env.REGION_URL);
+        const regionResult = await fetchData(process.env.REGION_URL);
+        const regions = regionResult.data;
       setSearchResult(getRegionData(regions, filteredProducts));
       updateRecommendList(products, filteredProducts);
       if (type === 'image_url') {

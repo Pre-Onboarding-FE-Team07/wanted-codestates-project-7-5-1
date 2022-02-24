@@ -7,7 +7,7 @@ export default function Card({ name, price, imageUrl, onClickEvent }) {
   return (
     //  카드
     <div
-      className="m-3 max-w-[15rem] shrink-0 grow basis-52 overflow-hidden group-hover:opacity-75"
+      className="m-7 max-w-[15rem] shrink-0 grow basis-52 cursor-pointer overflow-hidden"
       onClick={onClickEvent}
       aria-hidden="true"
     >
@@ -16,12 +16,12 @@ export default function Card({ name, price, imageUrl, onClickEvent }) {
         <img
           src={imageUrl}
           alt={name}
-          className="max-h-80 min-h-[20rem] w-full rounded-lg object-fill object-center"
+          className="h-[450px] w-full object-fill object-center hover:opacity-75"
         />
       </div>
       {/* name, price 영역 */}
-      <h3 className="mt-4 text-sm text-gray-700">{name}</h3>
-      <p className="mt-1 text-lg font-medium text-indigo-600">
+      <h3 className="mt-4 text-lg text-gray-700">{name}</h3>
+      <p className="mt-1 text-lg font-medium text-purple-600">
         ₩{moneycomma(price)}
       </p>
     </div>

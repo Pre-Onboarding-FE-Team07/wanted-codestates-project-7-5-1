@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
-
 import { useNavigate } from '../../node_modules/react-router/index';
 import { SearchResultContext } from '../App';
 import Card from '../components/Card';
 import ErrorMessage from '../components/ErrorMessage';
+import useSearch from '../hooks/useSearch';
 import Loading from '../components/Loading';
 
 export default function KeywordPage() {
   const [loading, setLoading] = useState(true);
   const { searchResult } = useContext(SearchResultContext);
+  const { search } = useSearch();
   const navigate = useNavigate();
-
   const handleErrorConfirm = () => {
     navigate('/');
   };
@@ -19,7 +19,7 @@ export default function KeywordPage() {
     setLoading(false);
   });
 
-  if (!searchResult || !searchResult.length)
+  if (!searchResult && !searchResult.length)
     return (
       <ErrorMessage
         text="존재하지 않는 상품입니다. "

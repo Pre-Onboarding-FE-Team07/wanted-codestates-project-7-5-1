@@ -1,8 +1,10 @@
 import { useState, useContext, useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import { SearchResultContext, RecomandListContext } from '../../App.jsx';
-import products from "../../datas/products.json";
-import regions from "../../datas/regions.json";
+import fetchData from "../../utilities/fetchData"
+
+const PRODUCT_URL = "https://static.pxl.ai/problem/data/products.json";
+const REGION_URL = "https://static.pxl.ai/problem/data/regions.json";
 
 const checkUrl = /^http[s]?\:\/\//i;
 const getWordType = (value) => {
@@ -14,16 +16,16 @@ const getWordType = (value) => {
     return 'product_code';
 }
 
-const getFilteredData = (word, wordType) => {
+const getFilteredData = (products, word, wordType) => {
     return products.filter((product) => wordType === 'name' ? product.name.includes(word) : product[wordType] == word)
 }
 
-const getRecommendList = (target) => {
+const getRecommendList = (products, target) => {
     const category = target[0].name.split("_")[0];
     return products.filter((product) => product.name.includes(category));
 }
 
-const getRegionData = (target) => {
+const getRegionData = (regions, target) => {
     return target.length > 0 ? regions.filter((item) => item.product_code === target[0].product_code) : [];
 }
 
@@ -33,9 +35,9 @@ const SearchBar = () => {
     const { setSearchResult} = useContext(SearchResultContext);
     const { setRecommendList} = useContext(RecomandListContext);
 
-    const updateRecommendList = (filteredProducts) => {
+    const updateRecommendList = (products, filteredProducts) => {
         if (filteredProducts.length > 0) {
-            const recommendList = getRecommendList(filteredProducts);
+            const recommendList = getRecommendList(products, filteredProducts);
             setRecommendList(recommendList);
         }
         else {
@@ -43,19 +45,20 @@ const SearchBar = () => {
         }
     }
 
-    const handleSearchClick = (e) => {
+    const handleSearchClick = async (e) => {
         if (searchKeyword.replace(/\s/gi, "") !== "") {
             let word = searchKeyword.trim();
             const wordType = getWordType(word);
-            const filteredProducts = getFilteredData(word, wordType);
-
+            const products = await fetchData(PRODUCT_URL);
+            const filteredProducts = getFilteredData(products, word, wordType);
             if (wordType === 'name') {
                 setSearchResult(filteredProducts);
                 navigate('/keyword');
             }
             else {
-                setSearchResult(getRegionData(filteredProducts));
-                updateRecommendList(filteredProducts);
+                const regions = await fetchData(REGION_URL);
+                setSearchResult(getRegionData(regions, filteredProducts));
+                updateRecommendList(products, filteredProducts);
                 if (wordType === 'image_url') {
                     word = encodeURIComponent(word);
                 }

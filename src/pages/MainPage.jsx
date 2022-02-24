@@ -3,7 +3,7 @@ import Title from '../components/Main/Title';
 
 const MainPage = () => {
   return (
-    <div className="Home m-auto mt-[14vh] h-fit w-[90vw] max-w-[800px] text-center">
+    <div className="m-auto mt-[14vh] h-fit w-[90vw] max-w-[800px] text-center">
       <Title />
       <SearchBar />
     </div>

@@ -52,7 +52,7 @@ const SearchBar = () => {
                 const recommendList = getRecommendList(filteredProducts);
                 recommendListDispatch.setRecommendList(recommendList);
                 if (wordType === 'image_url') {
-                    word = btoa(word);
+                    word = encodeURIComponent(word);
                 }
                 navigate(`/product/${word}`);
             }

@@ -1,6 +1,4 @@
-import { useContext, useEffect } from 'react';
-import { data } from '../../../../AppData/Local/Microsoft/TypeScript/4.5/node_modules/browserslist/index';
-import { element } from '../../node_modules/prop-types/index';
+import { useContext } from 'react';
 import { useNavigate } from '../../node_modules/react-router/index';
 import { SearchResultContext } from '../App';
 import Card from '../components/Card';

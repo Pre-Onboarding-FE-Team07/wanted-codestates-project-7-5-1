@@ -3,6 +3,59 @@ import { SearchResultContext, RecomandListContext } from '../App';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// 한글로 입력된 input값, 영문으로 변경
+const changeName = (keyword) => {
+  switch (keyword) {
+    case '원피스':
+      return 'onepiece';
+    case '드레스':
+      return 'dresses';
+    case '조끼':
+      return 'vest';
+    case '자켓':
+      return 'jackets';
+    case '바지':
+      return 'pants';
+    case '상의':
+      return 'tops';
+    case '하의':
+      return 'bottoms';
+    case '코트':
+      return 'coats';
+    case '점퍼':
+      return 'outwears';
+    case '니트':
+      return 'knitwear';
+    case '셔츠':
+      return 'shirts';
+    case '스웨터':
+      return 'sweater';
+    case '신발':
+      return 'shoes';
+    case '치마':
+      return 'skirts';
+    default:
+      return keyword;
+  }
+};
+// 카테고리에 대한 로직
+const keywordCategory = (product, word) => {
+  const keyword = changeName(word);
+  for (let cate of product.category_names) {
+    let category = cate.split('.');
+    if (category[1] === keyword) {
+      return category[1];
+    }
+  }
+};
+// name에 대한 로직
+const keywordName = (product, word) => product.name.includes(word);
+
+// name + category
+const keywordData = (product, word) => {
+  return keywordName(product, word) + keywordCategory(product, word);
+};
+
 const checkUrl = /^http[s]?\:\/\//i;
 const getType = (value) => {
   if (isNaN(value)) {
@@ -14,9 +67,7 @@ const getType = (value) => {
 
 const getFilteredData = (products, word, wordType) => {
   return products.filter((product) =>
-    wordType === 'name'
-      ? product.name.includes(word)
-      : product[wordType] == word
+    wordType === 'name' ? keywordData(product, word) : product[wordType] == word
   );
 };
 

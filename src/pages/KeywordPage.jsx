@@ -12,7 +12,7 @@ export default function KeywordPage() {
     navigate('/');
   };
 
-  if (!searchResult && !searchResult.length)
+  if (!searchResult || !searchResult.length)
     return (
       <ErrorMessage
         text="존재하지 않는 상품입니다. "

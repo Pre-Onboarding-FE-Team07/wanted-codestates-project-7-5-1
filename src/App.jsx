@@ -3,7 +3,11 @@ import { Routes, Route } from 'react-router-dom';
 
 import WithHeaderPage from './pages/WithHeaderPage';
 import MainPage from './pages/MainPage';
+<<<<<<< HEAD
 import KeywordPage from './pages/KeywordPage';
+=======
+// import KeywordPage from './pages/KeywordPage';
+>>>>>>> 4372d2313874e51460da47396a4350b1c26a5b69
 import ProductPage from './pages/ProductPage';
 
 export default function App() {
@@ -16,7 +20,7 @@ export default function App() {
         <Routes>
           <Route element={<WithHeaderPage />}>
             <Route path="/" element={<MainPage />} />
-            <Route path="/keyword" element={<KeywordPage />} />
+            {/* <Route path="/keyword" element={<KeywordPage />} /> */}
             <Route path="/product">
               <Route path=":product_code" element={<ProductPage />} />
             </Route>

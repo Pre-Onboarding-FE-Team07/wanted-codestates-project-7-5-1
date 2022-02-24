@@ -1,9 +1,9 @@
 import fetchData from "../utilities/fetchData"
-import { SearchResultContext, RecomandListContext } from '../App.jsx';
+import { SearchResultContext, RecomandListContext } from '../App';
 import { useContext} from "react";
 import { useNavigate } from 'react-router-dom';
 
-const checkUrl = /^http[s]?\:\/\//i;
+const checkUrl = /^http[s]?:\/\//i;
 const getType = (value) => {
     if (isNaN(value)) {
         if (checkUrl.test(value))

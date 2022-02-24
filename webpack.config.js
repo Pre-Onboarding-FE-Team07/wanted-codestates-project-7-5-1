@@ -36,19 +36,22 @@ module.exports = {
                 },
               },
             ],
-            ['@babel/preset-react',
-            {runtime: 'automatic'}]
+            ['@babel/preset-react', { runtime: 'automatic' }],
           ],
         },
       },
       {
         test: /.css?$/,
         include: path.resolve(__dirname, 'src', 'styles'),
-        use: ["style-loader", "css-loader", "postcss-loader"],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
+      },
+      {
+        test: /\.(png|jpg|gif|webp|ico)$/i,
+        type: 'asset/resource',
       },
     ],
   },

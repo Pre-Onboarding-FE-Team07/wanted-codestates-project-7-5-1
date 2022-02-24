@@ -1,6 +1,6 @@
 const Title = () => {
     return (
-        <div className="text-2xl md:text-5xl leading-snug font-thin text-zinc-700 h-[24vh] min-h-[120px] max-h-80">
+        <div className="text-[8vw] leading-snug sm:text-[48px] font-thin text-zinc-700 h-[24vh] sm:h-[26vh] min-h-[120px] max-h-80">
             <h1 className="">
                 <b>Artificial Intelligence</b>
                 <br></br>

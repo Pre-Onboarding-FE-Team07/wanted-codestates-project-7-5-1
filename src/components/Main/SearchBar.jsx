@@ -1,18 +1,8 @@
-import { useState } from "react";
-import products from "../../datas/products.json";
-
 const SearchBar = () => {
-    const [searchKeyword, setSearchKeyword] = useState();
     function handleClick() {
-        if (searchKeyword.replace(/\s/gi, "") !== "") {
-            const word = searchKeyword.trim();
-            const filteredProducts = products.filter(({ product_code, url, name }) => product_code == word || url === word || name.includes(word));
-            console.log(filteredProducts)
-        }
     }
 
     function handleInputChange(e) {
-        setSearchKeyword(e.target.value);
     }
     return (
         <div className="flex flex-row justify-between">

@@ -1,8 +1,8 @@
 const SearchBar = () => {
-    function handleClick() {
+    const handleClick = () =>{
     }
 
-    function handleInputChange(e) {
+    const handleInputChange = (e) => {
     }
     return (
         <div className="flex flex-row justify-between">

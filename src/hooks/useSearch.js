@@ -26,20 +26,20 @@ const getRegionData = (regions, target) => {
     return target.length > 0 ? regions.filter((item) => item.product_code === target[0].product_code) : [];
 }
 
-export default function useUserInput() {
+export default function useSearch() {
     const navigate = useNavigate();
-  const { setSearchResult} = useContext(SearchResultContext);
-  const { setRecommendList } = useContext(RecomandListContext);
+    const { setSearchResult} = useContext(SearchResultContext);
+    const { setRecommendList } = useContext(RecomandListContext);
 
-  const updateRecommendList = (products, filteredProducts) => {
-    if (filteredProducts.length > 0) {
-        const recommendList = getRecommendList(products, filteredProducts);
-        setRecommendList(recommendList);
+    const updateRecommendList = (products, filteredProducts) => {
+        if (filteredProducts.length > 0) {
+            const recommendList = getRecommendList(products, filteredProducts);
+            setRecommendList(recommendList);
+        }
+        else {
+            setRecommendList([]);
+        }
     }
-    else {
-        setRecommendList([]);
-    }
-  }
 
  async function search(searchKeyword) {
     let word = searchKeyword.trim();

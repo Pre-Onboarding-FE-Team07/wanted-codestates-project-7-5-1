@@ -15,7 +15,6 @@
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
-    "dotenv": "^16.0.0",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-import": "^2.25.4",
@@ -41,6 +40,7 @@
   },
   "dependencies": {
     "axios": "^0.26.0",
+    "dotenv": "^16.0.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

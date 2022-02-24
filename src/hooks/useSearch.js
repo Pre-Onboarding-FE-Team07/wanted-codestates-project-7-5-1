@@ -11,7 +11,7 @@ const changeName = (keyword) => {
     case '드레스':
       return 'dresses';
     case '조끼':
-      return 'vest';
+      return 'vests';
     case '자켓':
       return 'jackets';
     case '바지':

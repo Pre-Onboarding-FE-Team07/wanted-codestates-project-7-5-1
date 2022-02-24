@@ -27,6 +27,7 @@
     "postcss-loader": "^6.2.1",
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.7",
+    "source-map": "^0.7.3",
     "style-loader": "^3.3.1",
     "tailwindcss": "^3.0.23",
     "webpack": "^5.69.1",
@@ -39,6 +40,10 @@
   },
   "dependencies": {
     "axios": "^0.26.0",
+<<<<<<< HEAD
+=======
+    "dotenv": "^16.0.0",
+>>>>>>> 44fd255a6ec6287aab5af89087896c7b59024795
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

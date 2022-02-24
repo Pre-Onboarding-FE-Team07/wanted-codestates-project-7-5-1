@@ -1,6 +1,16 @@
 import Card from '../components/Card';
+import Loading from '../components/Loading';
+import { useEffect, useState } from 'react';
 
 export default function KeywordPage() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
   const products = [
     {
       product_code: 1,
@@ -34,21 +44,25 @@ export default function KeywordPage() {
 
   return (
     <div>
-      <div className="bg-white">
-        <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-          <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {products.map((product) => (
-              <div key={product.id} className="group relative">
-                <Card
-                  name={product.name}
-                  price={product.price}
-                  imageUrl={product.image_url}
-                />
-              </div>
-            ))}
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="bg-white">
+          <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+            <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+              {products.map((product) => (
+                <div key={product.id} className="group relative">
+                  <Card
+                    name={product.name}
+                    price={product.price}
+                    imageUrl={product.image_url}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

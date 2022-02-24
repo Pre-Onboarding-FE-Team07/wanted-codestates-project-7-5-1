@@ -10,8 +10,11 @@ const Header = () => {
   }, [navigate]);
 
   return (
-    <header className=" h-[64px] sm:h-[100px] p-4 cursor-pointer" onClick={onClick}>
-      <img className="w-[50px] sm:w-[80px]"src={logo} alt="PXL Logo" />
+    <header
+      className=" h-[64px] cursor-pointer p-4 sm:h-[100px]"
+      onClick={onClick}
+    >
+      <img className="w-[50px] sm:w-[80px]" src={logo} alt="PXL Logo" />
     </header>
   );
 };

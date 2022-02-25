@@ -27,19 +27,19 @@
 
 ## 팀 멤버
 
-| 이름                                       | 직책 | 역할                                         |
-| ------------------------------------------ | ---- | -------------------------------------------- |
-| [✨김정훈](https://github.com/jeonghun10)  | 팀장 | 영역을 처음부터 설정하는 기능                |
-| [⚡️박진용](https://github.com/jinyongp)   | 팀원 | 영역을 추가하는 기능                         |
-| [🎨문선경](https://github.com/dev-seomoon) | 팀원 | (image_url 또는 product_code) 검색 결과 기능 |
-| [🚀심채윤](https://github.com/Lela12)      | 팀원 | 로딩 중에 대한 기능                          |
-| [✏️예효은](https://github.com/ye-yo)       | 팀원 | 검색기능                                     |
-| [🔨이예지](https://github.com/Lee-ye-ji)   | 팀원 | (keyword) 검색 결과 기능                     |
-| [🚚최민우](https://github.com/exxocism)    | 팀원 | 에러에 대한 기능 & 페이지 기능               |
+| 이름                                       | 직책 | 역할                                                  |
+| ------------------------------------------ | ---- | ----------------------------------------------------- |
+| [✨김정훈](https://github.com/jeonghun10)  | 팀장 | `문제 2` 영역을 처음부터 설정하는 기능                |
+| [⚡️박진용](https://github.com/jinyongp)   | 팀원 | `문제 2` 영역을 추가하는 기능                         |
+| [🎨문선경](https://github.com/dev-seomoon) | 팀원 | `문제 1` (image_url 또는 product_code) 검색 결과 기능 |
+| [🚀심채윤](https://github.com/Lela12)      | 팀원 | `문제 1` 로딩 중에 대한 기능                          |
+| [✏️예효은](https://github.com/ye-yo)       | 팀원 | `문제 1` 검색기능                                     |
+| [🔨이예지](https://github.com/Lee-ye-ji)   | 팀원 | `문제 1` (keyword) 검색 결과 기능                     |
+| [🚚최민우](https://github.com/exxocism)    | 팀원 | `문제 1` 에러에 대한 기능 & 페이지 기능               |
 
 ---
 
-## 구현한 기능 목록
+## 구현한 기능 목록(`문제 1`)
 
 <details>	
   <summary><b>공통</b></summary>

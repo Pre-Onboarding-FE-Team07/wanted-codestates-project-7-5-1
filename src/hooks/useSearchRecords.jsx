@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function useSearchRecords(key, initialValue = []) {
   const pathName = window.location.pathname;
-  let id = null;
+  let decodedId = null;
+  let originId = null;
   if (pathName) {
-    id = pathName.split('/');
-    id = id.length > 2 ? id[2] : 0;
+    originId = pathName.split('/');
+    originId = originId.length > 2 ? originId[2] : 0;
+    decodedId = decodeURIComponent(originId);
   }
 
   const [value, setValue] = useState(() => {
@@ -13,18 +15,17 @@ export default function useSearchRecords(key, initialValue = []) {
     try {
       const parsedValue = JSON.parse(storedValue);
       if (parsedValue) {
-        if (parsedValue.keyword == id) return parsedValue[key] || initialValue;
+        if (
+          parsedValue.keyword == originId ||
+          parsedValue.keyword === decodedId
+        )
+          return parsedValue[key] || initialValue;
       }
       return initialValue;
     } catch (error) {
       return initialValue;
     }
   });
-
-  useEffect(() => {
-    const stringifiedValue = JSON.stringify(value);
-    localStorage.setItem(key, stringifiedValue);
-  }, [value]);
 
   return [value, setValue];
 }

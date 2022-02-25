@@ -1,16 +1,13 @@
 import * as axios from 'axios';
 
-const fetchData = async (...args) =>{
-  const [url, options] = args;
-  const request = { url, options };
-  const cachedResponse = localStorage.getItem(JSON.stringify(request));
+const fetchData = async (...args) => {
+  const [url, key] = args;
+  const cachedResponse = localStorage.getItem(key);
   if (cachedResponse) {
     return JSON.parse(cachedResponse);
   }
-
   const response = await axios.get(...args);
-
-  localStorage.setItem(JSON.stringify(request), JSON.stringify(response));
+  localStorage.setItem(key, JSON.stringify(response));
   return response;
 };
 

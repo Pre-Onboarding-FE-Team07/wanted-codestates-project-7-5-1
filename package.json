@@ -36,7 +36,7 @@
   },
   "scripts": {
     "start": "webpack serve --env development",
-    "build": "webpack"
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "axios": "^0.26.0",

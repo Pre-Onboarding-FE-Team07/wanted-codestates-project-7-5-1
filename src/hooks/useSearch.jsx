@@ -73,7 +73,11 @@ const getFilteredData = (products, word, wordType) => {
 
 const getRecommendList = (products, target) => {
   const category = target[0].name.split('_')[0];
-  return products.filter((product) => product.name.includes(category));
+  return products.filter(
+    (product) =>
+      product.name.includes(category) &&
+      product.product_code !== target[0].product_code
+  );
 };
 
 const getRegionData = (regions, target) => {

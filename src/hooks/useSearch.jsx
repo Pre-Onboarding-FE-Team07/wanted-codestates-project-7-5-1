@@ -2,7 +2,6 @@ import fetchData from '../utilities/fetchData';
 import { SearchResultContext, RecomandListContext } from '../App';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 // 한글로 입력된 input값, 영문으로 변경
 const changeName = (keyword) => {
   switch (keyword) {
@@ -74,7 +73,11 @@ const getFilteredData = (products, word, wordType) => {
 
 const getRecommendList = (products, target) => {
   const category = target[0].name.split('_')[0];
-  return products.filter((product) => product.name.includes(category));
+  return products.filter(
+    (product) =>
+      product.name.includes(category) &&
+      product.product_code !== target[0].product_code
+  );
 };
 
 const getRegionData = (regions, target) => {
@@ -83,37 +86,54 @@ const getRegionData = (regions, target) => {
     : [];
 };
 
+const storedSearhDatas = (keyword, searchResult, recommendList) => {
+  localStorage.setItem(
+    'search',
+    JSON.stringify({
+      keyword,
+      searchResult,
+      recommendList,
+    })
+  );
+};
 export default function useUserInput() {
   const navigate = useNavigate();
   const { setSearchResult } = useContext(SearchResultContext);
   const { setRecommendList } = useContext(RecomandListContext);
 
   const updateRecommendList = (products, filteredProducts) => {
+    let recommendList = [];
     if (filteredProducts.length > 0) {
-      const recommendList = getRecommendList(products, filteredProducts);
-      setRecommendList(recommendList);
-    } else {
-      setRecommendList([]);
+      recommendList = getRecommendList(products, filteredProducts);
     }
+    setRecommendList(recommendList);
+    return recommendList;
   };
 
   async function search(searchKeyword) {
     let word = searchKeyword.trim();
     const type = getType(word);
-    const products = await fetchData(process.env.PRODUCT_URL);
+    const prductResult = await fetchData(process.env.PRODUCT_URL);
+    const products = prductResult.data;
     const filteredProducts = getFilteredData(products, word, type);
+    let targetSearchResult = filteredProducts;
 
     if (type === 'name') {
-      setSearchResult(filteredProducts);
-      navigate('/keyword');
+      setSearchResult(targetSearchResult);
+      storedSearhDatas(word, targetSearchResult, []);
+      navigate(`/keyword/${word}`);
     } else {
-      const regions = await fetchData(process.env.REGION_URL);
-      setSearchResult(getRegionData(regions, filteredProducts));
-      updateRecommendList(products, filteredProducts);
-      if (type === 'image_url') {
+      const regionResult = await fetchData(process.env.REGION_URL);
+      const regions = regionResult.data;
+      targetSearchResult = getRegionData(regions, filteredProducts);
+      setSearchResult(targetSearchResult);
+      const recommendList = updateRecommendList(products, filteredProducts);
+      const isImageUrl = type === 'image_url';
+      if (isImageUrl) {
         word = encodeURIComponent(word);
       }
-      navigate(`/product/${word}`);
+      storedSearhDatas(word, targetSearchResult, recommendList);
+      navigate(`/product/${isImageUrl ? word + '/' : word}`);
     }
   }
   return { search };

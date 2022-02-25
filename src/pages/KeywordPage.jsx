@@ -6,14 +6,16 @@ import ErrorMessage from '../components/ErrorMessage';
 import useSearch from '../hooks/useSearch';
 
 export default function KeywordPage() {
-  const { searchResult } = useContext(SearchResultContext);
   const { search } = useSearch();
+
+  const { searchResult } = useContext(SearchResultContext);
+
   const navigate = useNavigate();
   const handleErrorConfirm = () => {
     navigate('/');
   };
 
-  if (!searchResult && !searchResult.length)
+  if (!searchResult || !searchResult.length)
     return (
       <ErrorMessage
         text="존재하지 않는 상품입니다. "

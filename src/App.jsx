@@ -1,13 +1,16 @@
-import { useState, createContext } from 'react';
+import { createContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import WithHeaderPage from './pages/WithHeaderPage';
 import MainPage from './pages/MainPage';
 import KeywordPage from './pages/KeywordPage';
 import ProductPage from './pages/ProductPage';
-
+import useSearchRecords from './hooks/useSearchRecords';
 export default function App() {
-  const [searchResult, setSearchResult] = useState([]);
-  const [recommendList, setRecommendList] = useState([]);
+  const [searchResult, setSearchResult] = useSearchRecords('searchResult', []);
+  const [recommendList, setRecommendList] = useSearchRecords(
+    'recommendList',
+    []
+  );
 
   return (
     <RecomandListContext.Provider value={{ recommendList, setRecommendList }}>
@@ -15,9 +18,11 @@ export default function App() {
         <Routes>
           <Route element={<WithHeaderPage />}>
             <Route path="/" element={<MainPage />} />
-            <Route path="/keyword" element={<KeywordPage />} />
+            <Route path="/keyword">
+              <Route path=":id" element={<KeywordPage />} />
+            </Route>
             <Route path="/product">
-              <Route path=":product_code" element={<ProductPage />} />
+              <Route path=":id" element={<ProductPage />} />
             </Route>
           </Route>
         </Routes>
@@ -34,5 +39,5 @@ export const SearchResultContext = createContext({
 
 export const RecomandListContext = createContext({
   recommendList: [],
-  setRecomendList: () => {},
+  setRecommendList: () => {},
 });

@@ -4,8 +4,8 @@ import Card from '../Card';
 import useSearch from '../../hooks/useSearch';
 
 const Recommends = () => {
-  const { recommendList } = useContext(RecomandListContext);
   const { search } = useSearch();
+  const { recommendList } = useContext(RecomandListContext);
 
   return (
     <section className="mt-[-1.75rem] box-border flex w-full flex-wrap px-6 py-4">

@@ -1,5 +1,7 @@
 # wanted-codestates-project-7-5-1
 
+이미지url/제품코드/키워드로 상품 검색이 가능하며 상품 목록에서 정보 확인 및 카테고리를 태그 형식으로 확인할 수 있습니다. 또한 각각의 상품을 클릭 시 그와 관련된 추천 상품 목록을 제공합니다.
+
 ## 프로젝트 실행 방법
 
 - 배포 사이트
@@ -17,10 +19,10 @@
 ```
 --📁 src
   ---📁 assets ➡ 이미지 공간
-  ---📁 component ➡ 화면 컴포넌트
-  ---📁 pages ➡ 화면 공간
-  -- 📁 hooks ➡ 검색 시 어떤 데이터를 저장할 지에 대한 공간
-  ---📁 utilities ➡ 로딩된 데이터는 메모리에 캐시한 공간
+  ---📁 components ➡ 화면 컴포넌트
+  ---📁 pages ➡ 라우팅될 화면 공간
+  -- 📁 hooks ➡ 커스텀 훅 공간
+  ---📁 utilities ➡ 모듈화된 함수 공간
 ```
 
 ---
@@ -33,7 +35,7 @@
 | [⚡️박진용](https://github.com/jinyongp)   | 팀원 | 영역을 추가하는 기능                         |
 | [🎨문선경](https://github.com/dev-seomoon) | 팀원 | (image_url 또는 product_code) 검색 결과 기능 |
 | [🚀심채윤](https://github.com/Lela12)      | 팀원 | 로딩 중에 대한 기능                          |
-| [✏️예효은](https://github.com/ye-yo)       | 팀원 | 검색기능                                     |
+| [✏️예효은](https://github.com/ye-yo)       | 팀원 | 메인 검색 기능 및 검색 결과 필터링           |
 | [🔨이예지](https://github.com/Lee-ye-ji)   | 팀원 | (keyword) 검색 결과 기능                     |
 | [🚚최민우](https://github.com/exxocism)    | 팀원 | 에러에 대한 기능 & 페이지 기능               |
 

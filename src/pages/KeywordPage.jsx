@@ -10,6 +10,9 @@ export default function KeywordPage() {
   const { searchResult } = useContext(SearchResultContext);
   const [loading, setLoading] = useState(true);
   const { search } = useSearch();
+
+  const { searchResult } = useContext(SearchResultContext);
+
   const navigate = useNavigate();
   const handleErrorConfirm = () => {
     navigate('/');

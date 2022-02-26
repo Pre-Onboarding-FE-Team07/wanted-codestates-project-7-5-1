@@ -97,6 +97,13 @@ const storedSearhDatas = (keyword, searchResult, recommendList) => {
   );
 };
 
+const shuffleArray = (unshuffledArray) => {
+  return unshuffledArray
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+};
+
 const getRegions = async (filteredProducts) => {
   const regionResult = await fetchData(process.env.REGION_URL, 'regions');
   const regions = regionResult.data;
@@ -108,7 +115,7 @@ const getProducts = async () => {
   return productResult.data;
 };
 
-export default function useUserInput() {
+export default function useSearch() {
   const navigate = useNavigate();
   const { setSearchResult } = useContext(SearchResultContext);
   const { setRecommendList } = useContext(RecomandListContext);
@@ -124,6 +131,8 @@ export default function useUserInput() {
     if (filteredProducts.length > 0) {
       recommendList = getRecommendList(products, filteredProducts);
     }
+    recommendList = shuffleArray(recommendList);
+    console.log(recommendList);
     setRecommendList(recommendList);
     return recommendList;
   };

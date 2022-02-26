@@ -49,21 +49,18 @@ const keywordCategory = (product, word) => {
 };
 // name에 대한 로직
 const keywordName = (product, word) => {
-  const name = product.name.includes(word);
-  if (name) {
-    return name;
-  }
+  return product.name.includes(word);
 };
 
 // name + category
 const keywordData = (product, word) => {
-  const nameList = keywordName(product, word);
-  const categoryList = keywordCategory(product, word);
+  const isMatchedName = keywordName(product, word);
+  const isMatchedCategory = keywordCategory(product, word);
 
-  if (nameList) {
-    return nameList;
+  if (isMatchedName) {
+    return isMatchedName;
   } else {
-    return categoryList;
+    return isMatchedCategory;
   }
 };
 

@@ -132,7 +132,6 @@ export default function useSearch() {
       recommendList = getRecommendList(products, filteredProducts);
     }
     recommendList = shuffleArray(recommendList);
-    console.log(recommendList);
     setRecommendList(recommendList);
     return recommendList;
   };
@@ -143,12 +142,12 @@ export default function useSearch() {
     navigate(path);
   };
 
-  async function search(searchKeyword) {
+  const search = async (searchKeyword) => {
     let word = searchKeyword.trim();
     const type = getType(word);
     const products = await getProducts();
     const filteredProducts = getFilteredData(products, word, type);
-    let path = `/keyword/${word}`;
+    let path = `/keyword?q=${word}`;
     if (!filteredProducts || filteredProducts.length === 0) {
       isNotFoundKeyword();
       navigate(path);
@@ -160,13 +159,12 @@ export default function useSearch() {
     } else {
       targetSearchResult = await getRegions(targetSearchResult);
       const recommendList = updateRecommendList(products, filteredProducts);
-      const isImageUrl = type === 'image_url';
-      if (isImageUrl) {
+      if (type === 'image_url') {
         word = encodeURIComponent(word);
       }
-      path = `/product/${isImageUrl ? word + '/' : word}`;
+      path = `/product?q=${word}`;
       updateState({ word, targetSearchResult, recommendList, path });
     }
-  }
+  };
   return { search };
 }

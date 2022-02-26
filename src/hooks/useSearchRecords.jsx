@@ -1,14 +1,7 @@
 import { useState } from 'react';
 
 export default function useSearchRecords(key, initialValue = []) {
-  const pathName = window.location.pathname;
-  let decodedId = null;
-  let originId = null;
-  if (pathName) {
-    originId = pathName.split('/');
-    originId = originId.length > 2 ? originId[2] : 0;
-    decodedId = decodeURIComponent(originId);
-  }
+  const queryString = window.location.search.replace(/^.*?\=/, '');
 
   const [value, setValue] = useState(() => {
     const storedValue = localStorage.getItem('search');
@@ -16,8 +9,8 @@ export default function useSearchRecords(key, initialValue = []) {
       const parsedValue = JSON.parse(storedValue);
       if (parsedValue) {
         if (
-          parsedValue.keyword == originId ||
-          parsedValue.keyword === decodedId
+          parsedValue.keyword == queryString ||
+          parsedValue.keyword === decodeURIComponent(queryString)
         )
           return parsedValue[key] || initialValue;
       }

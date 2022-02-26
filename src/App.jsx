@@ -18,12 +18,8 @@ export default function App() {
         <Routes>
           <Route element={<WithHeaderPage />}>
             <Route path="/" element={<MainPage />} />
-            <Route path="/keyword">
-              <Route path=":id" element={<KeywordPage />} />
-            </Route>
-            <Route path="/product">
-              <Route path=":id" element={<ProductPage />} />
-            </Route>
+            <Route path="/keyword" element={<KeywordPage />} />
+            <Route path="/product" element={<ProductPage />} />
           </Route>
         </Routes>
       </SearchResultContext.Provider>

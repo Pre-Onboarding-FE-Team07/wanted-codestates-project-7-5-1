@@ -49,21 +49,18 @@ const keywordCategory = (product, word) => {
 };
 // name에 대한 로직
 const keywordName = (product, word) => {
-  const name = product.name.includes(word);
-  if (name) {
-    return name;
-  }
+  return product.name.includes(word);
 };
 
 // name + category
 const keywordData = (product, word) => {
-  const nameList = keywordName(product, word);
-  const categoryList = keywordCategory(product, word);
+  const isMatchedName = keywordName(product, word);
+  const isMatchedCategory = keywordCategory(product, word);
 
-  if (nameList) {
-    return nameList;
+  if (isMatchedName) {
+    return isMatchedName;
   } else {
-    return categoryList;
+    return isMatchedCategory;
   }
 };
 
@@ -109,6 +106,13 @@ const storedSearhDatas = (keyword, searchResult, recommendList) => {
   );
 };
 
+const shuffleArray = (unshuffledArray) => {
+  return unshuffledArray
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+};
+
 const getRegions = async (filteredProducts) => {
   const regionResult = await fetchData(process.env.REGION_URL, 'regions');
   const regions = regionResult.data;
@@ -120,7 +124,7 @@ const getProducts = async () => {
   return productResult.data;
 };
 
-export default function useUserInput() {
+export default function useSearch() {
   const navigate = useNavigate();
   const { setSearchResult } = useContext(SearchResultContext);
   const { setRecommendList } = useContext(RecomandListContext);
@@ -136,6 +140,7 @@ export default function useUserInput() {
     if (filteredProducts.length > 0) {
       recommendList = getRecommendList(products, filteredProducts);
     }
+    recommendList = shuffleArray(recommendList);
     setRecommendList(recommendList);
     return recommendList;
   };
@@ -146,12 +151,12 @@ export default function useUserInput() {
     navigate(path);
   };
 
-  async function search(searchKeyword) {
+  const search = async (searchKeyword) => {
     let word = searchKeyword.trim();
     const type = getType(word);
     const products = await getProducts();
     const filteredProducts = getFilteredData(products, word, type);
-    let path = `/keyword/${word}`;
+    let path = `/keyword?q=${word}`;
     if (!filteredProducts || filteredProducts.length === 0) {
       isNotFoundKeyword();
       navigate(path);
@@ -163,13 +168,12 @@ export default function useUserInput() {
     } else {
       targetSearchResult = await getRegions(targetSearchResult);
       const recommendList = updateRecommendList(products, filteredProducts);
-      const isImageUrl = type === 'image_url';
-      if (isImageUrl) {
+      if (type === 'image_url') {
         word = encodeURIComponent(word);
       }
-      path = `/product/${isImageUrl ? word + '/' : word}`;
+      path = `/product?q=${word}`;
       updateState({ word, targetSearchResult, recommendList, path });
     }
-  }
+  };
   return { search };
 }

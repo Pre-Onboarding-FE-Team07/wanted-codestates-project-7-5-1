@@ -17,11 +17,11 @@ const Aside = ({ searchResult }) => {
 
   return (
     <aside className="box-border w-[340px] p-4">
-      <div className="h-[300px] w-full overflow-hidden bg-gray-200">
+      <div className="h-[360px] w-full overflow-hidden bg-gray-200">
         <img
           src={image_url}
           alt="product"
-          className="block h-fit w-full bg-cover"
+          className="block h-full w-full object-cover"
         />
       </div>
       <Section title="ITEMS">

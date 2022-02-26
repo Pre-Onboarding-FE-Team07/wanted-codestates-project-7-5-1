@@ -21,7 +21,7 @@ export default function KeywordPage() {
     if (searchResult) {
       setLoading(false);
     }
-  }, []);
+  }, [loading]);
 
   const showMore = useCallback(() => {
     setPagination((prev) => prev + 15);
@@ -39,8 +39,8 @@ export default function KeywordPage() {
   else
     return (
       <>
-        <section className="mx-auto box-border flex w-full p-10">
-          <div className="flex flex-wrap justify-center">
+        <div className="mx-8">
+          <section className="grid grid-cols-1 justify-items-center sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 xl:gap-x-8">
             {searchResult.map(
               (product, index) =>
                 index < pagination && (
@@ -55,8 +55,8 @@ export default function KeywordPage() {
                   />
                 )
             )}
-          </div>
-        </section>
+          </section>
+        </div>
         {searchResult.length > pagination && (
           <div className="flex justify-center">
             <button

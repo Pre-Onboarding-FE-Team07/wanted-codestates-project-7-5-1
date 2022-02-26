@@ -48,11 +48,23 @@ const keywordCategory = (product, word) => {
   }
 };
 // name에 대한 로직
-const keywordName = (product, word) => product.name.includes(word);
+const keywordName = (product, word) => {
+  const name = product.name.includes(word);
+  if (name) {
+    return name;
+  }
+};
 
 // name + category
 const keywordData = (product, word) => {
-  return keywordName(product, word) + keywordCategory(product, word);
+  const nameList = keywordName(product, word);
+  const categoryList = keywordCategory(product, word);
+
+  if (nameList) {
+    return nameList;
+  } else {
+    return categoryList;
+  }
 };
 
 const checkUrl = /^http[s]?\:\/\//i;

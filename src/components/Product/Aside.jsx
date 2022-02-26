@@ -17,7 +17,13 @@ const Aside = ({ searchResult }) => {
 
   return (
     <aside className="box-border w-[340px] p-4">
-      <img src={image_url} alt="product" className="w-full" />
+      <div className="h-[300px] w-full overflow-hidden bg-gray-200">
+        <img
+          src={image_url}
+          alt="product"
+          className="block h-fit w-full bg-cover"
+        />
+      </div>
       <Section title="ITEMS">
         <span className="my-[9px] inline-block bg-purple-500 p-1 text-white">
           {category}

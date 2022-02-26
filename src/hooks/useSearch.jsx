@@ -96,10 +96,28 @@ const storedSearhDatas = (keyword, searchResult, recommendList) => {
     })
   );
 };
+
+const getRegions = async (filteredProducts) => {
+  const regionResult = await fetchData(process.env.REGION_URL, 'regions');
+  const regions = regionResult.data;
+  return getRegionData(regions, filteredProducts);
+};
+
+const getProducts = async () => {
+  const productResult = await fetchData(process.env.PRODUCT_URL, 'products');
+  return productResult.data;
+};
+
 export default function useUserInput() {
   const navigate = useNavigate();
   const { setSearchResult } = useContext(SearchResultContext);
   const { setRecommendList } = useContext(RecomandListContext);
+
+  const isNotFoundKeyword = () => {
+    localStorage.removeItem('search');
+    setSearchResult([]);
+    setRecommendList([]);
+  };
 
   const updateRecommendList = (products, filteredProducts) => {
     let recommendList = [];
@@ -110,30 +128,35 @@ export default function useUserInput() {
     return recommendList;
   };
 
+  const updateState = ({ word, targetSearchResult, recommendList, path }) => {
+    setSearchResult(targetSearchResult);
+    storedSearhDatas(word, targetSearchResult, recommendList);
+    navigate(path);
+  };
+
   async function search(searchKeyword) {
     let word = searchKeyword.trim();
     const type = getType(word);
-    const prductResult = await fetchData(process.env.PRODUCT_URL);
-    const products = prductResult.data;
+    const products = await getProducts();
     const filteredProducts = getFilteredData(products, word, type);
+    let path = `/keyword/${word}`;
+    if (!filteredProducts || filteredProducts.length === 0) {
+      isNotFoundKeyword();
+      navigate(path);
+      return;
+    }
     let targetSearchResult = filteredProducts;
-
     if (type === 'name') {
-      setSearchResult(targetSearchResult);
-      storedSearhDatas(word, targetSearchResult, []);
-      navigate(`/keyword/${word}`);
+      updateState({ word, targetSearchResult, recommendList: [], path });
     } else {
-      const regionResult = await fetchData(process.env.REGION_URL);
-      const regions = regionResult.data;
-      targetSearchResult = getRegionData(regions, filteredProducts);
-      setSearchResult(targetSearchResult);
+      targetSearchResult = await getRegions(targetSearchResult);
       const recommendList = updateRecommendList(products, filteredProducts);
       const isImageUrl = type === 'image_url';
       if (isImageUrl) {
         word = encodeURIComponent(word);
       }
-      storedSearhDatas(word, targetSearchResult, recommendList);
-      navigate(`/product/${isImageUrl ? word + '/' : word}`);
+      path = `/product/${isImageUrl ? word + '/' : word}`;
+      updateState({ word, targetSearchResult, recommendList, path });
     }
   }
   return { search };
